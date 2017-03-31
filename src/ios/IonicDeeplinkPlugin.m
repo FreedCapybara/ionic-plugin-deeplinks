@@ -30,7 +30,6 @@
 }
 
 - (void)onDeepLink:(CDVInvokedUrlCommand *)command {
-  NSLog(@"IonicDeepLinkPlugin: Inside onDeepLink");
   [_handlers addObject:command.callbackId];
   // Try to consume any events we got before we were listening
   [self sendToJs];
@@ -48,10 +47,9 @@
 
 - (BOOL)handleContinueUserActivity:(NSUserActivity *)userActivity {
 
-  NSLog(@"IonicDeepLinkPlugin: Inside handleContinueUserActivity");
-  //if (![userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || userActivity.webpageURL == nil) {
-    //return NO;
-  //}
+  if (![userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || userActivity.webpageURL == nil) {
+    return NO;
+  }
 
   NSURL *url = userActivity.webpageURL ?: [[NSURL alloc] init];
   _lastEvent = [self createResult:url];
@@ -63,10 +61,15 @@
 }
 
 - (void) sendToJs {
-  NSLog(@"IonicDeepLinkPlugin: Inside sendToJs");
+  NSLog(@"IonicDeepLinkPlugin: Inside sendToJs %@ handlers", _handlers.count);
   // Send the last event to JS if we have one
-  if (_handlers.count == 0 || _lastEvent == nil) {
+  if (_handlers.count == 0) {// || _lastEvent == nil) {
     return;
+  }
+  
+  if (_lastEvent == nil) {
+    NSURL *url = userActivity.webpageURL ?: [[NSURL alloc] init];
+    _lastEvent = [self createResult:url];
   }
 
   // Iterate our handlers and send the event
