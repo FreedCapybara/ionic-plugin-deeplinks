@@ -68,7 +68,7 @@
   }
   
   if (_lastEvent == nil) {
-    NSURL *url = userActivity.webpageURL ?: [[NSURL alloc] init];
+    NSURL *url = [[NSURL alloc] init];
     _lastEvent = [self createResult:url];
   }
 
