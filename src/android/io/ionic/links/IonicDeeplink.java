@@ -71,19 +71,19 @@ public class IonicDeeplink extends CordovaPlugin {
     Log.d(TAG, "Got a new intent: " + intentString + " " + intent.getScheme() + " " + action + " " + url);
 
     // if app was not launched by the url - ignore
-    if (!Intent.ACTION_VIEW.equals(action) || url == null) {
-      return;
-    }
+    //if (!Intent.ACTION_VIEW.equals(action) || url == null) {
+      //return;
+    //}
 
     // store message and try to consume it
     try {
       lastEvent = new JSONObject();
-      lastEvent.put("url", url.toString());
-      lastEvent.put("path", url.getPath());
-      lastEvent.put("queryString", url.getQuery());
-      lastEvent.put("scheme", url.getScheme());
-      lastEvent.put("host", url.getHost());
-      lastEvent.put("fragment", url.getFragment());
+      lastEvent.put("url", url != null ? url.toString() : "");
+      lastEvent.put("path", url != null ? url.getPath() : "");
+      lastEvent.put("queryString", url != null ? url.getQuery() : "");
+      lastEvent.put("scheme", url != null ? url.getScheme() : "");
+      lastEvent.put("host", url != null ? url.getHost() : "");
+      lastEvent.put("fragment", url != null ? url.getFragment() : "");
       lastEvent.put("extra", bundleData);
       consumeEvents();
     } catch(JSONException ex) {
