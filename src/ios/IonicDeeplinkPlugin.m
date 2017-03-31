@@ -30,6 +30,7 @@
 }
 
 - (void)onDeepLink:(CDVInvokedUrlCommand *)command {
+  NSLog(@"IonicDeepLinkPlugin: Inside onDeepLink");
   [_handlers addObject:command.callbackId];
   // Try to consume any events we got before we were listening
   [self sendToJs];
@@ -47,6 +48,7 @@
 
 - (BOOL)handleContinueUserActivity:(NSUserActivity *)userActivity {
 
+  NSLog(@"IonicDeepLinkPlugin: Inside handleContinueUserActivity");
   //if (![userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || userActivity.webpageURL == nil) {
     //return NO;
   //}
@@ -61,6 +63,7 @@
 }
 
 - (void) sendToJs {
+  NSLog(@"IonicDeepLinkPlugin: Inside sendToJs");
   // Send the last event to JS if we have one
   if (_handlers.count == 0 || _lastEvent == nil) {
     return;
