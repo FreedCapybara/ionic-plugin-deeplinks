@@ -47,11 +47,11 @@
 
 - (BOOL)handleContinueUserActivity:(NSUserActivity *)userActivity {
 
-  if (![userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || userActivity.webpageURL == nil) {
-    return NO;
-  }
+  //if (![userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || userActivity.webpageURL == nil) {
+    //return NO;
+  //}
 
-  NSURL *url = userActivity.webpageURL;
+  NSURL *url = userActivity.webpageURL ?: [[NSURL alloc] init];
   _lastEvent = [self createResult:url];
   NSLog(@"IonicDeepLinkPlugin: Handle continueUserActivity (internal) %@", url);
 
