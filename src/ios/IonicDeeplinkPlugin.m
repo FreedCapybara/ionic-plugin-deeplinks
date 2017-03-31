@@ -61,7 +61,6 @@
 }
 
 - (void) sendToJs {
-  NSLog(@"IonicDeepLinkPlugin: Inside sendToJs %@ handlers", _handlers.count);
   // Send the last event to JS if we have one
   if (_handlers.count == 0) {// || _lastEvent == nil) {
     return;
